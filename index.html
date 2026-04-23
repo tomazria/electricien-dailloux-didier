@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Dailloux Didier — Électricien à Auxerre. Installation, dépannage, mise aux normes, domotique. Intervention rapide, devis gratuit." />
+  <title>Dailloux Didier — Électricien à Auxerre</title>
+
+  <!--
+    ============================================================
+    TEMPLATE ONE-PAGE ÉLECTRICIEN
+    Variables à remplacer automatiquement depuis Google Maps :
+      Dailloux Didier   Nom de l'entreprise
+      06 82 19 45 44           Numéro affiché (ex: 01 23 45 67 89)
+      +33682194544      Numéro format tel: (ex: +33123456789)
+      contact@dailloux-didier.fr           Adresse email
+      4 Rue de la Tour d'Auvergne         Rue et numéro
+      89000     Code postal
+      Auxerre            Ville principale
+      {{HOURS_MONDAY}}    ex: "08h00 – 18h00" ou "Fermé"
+      {{HOURS_TUESDAY}}
+      {{HOURS_WEDNESDAY}}
+      {{HOURS_THURSDAY}}
+      {{HOURS_FRIDAY}}
+      {{HOURS_SATURDAY}}
+      {{HOURS_SUNDAY}}
+      Intervention à Auxerre et dans un rayon de 30 km (communes limitrophes et agglomération).   Liste de villes séparées par virgules
+                          (ex: "Neuilly, Levallois, Courbevoie")
+      https://maps.google.com/maps?q=4+Rue+de+la+Tour+d%27Auvergne%2C+89000+Auxerre&t=&z=13&ie=UTF8&iwloc=&output=embed   URL d'embed Google Maps de l'adresse
+
+    NOTE SUR LES IMAGES
+      Les images sont chargées depuis Unsplash (URL directes).
+      Elles sont choisies pour illustrer l'univers électricité/
+      installation/domotique. Tu peux les remplacer par tes
+      propres photos en modifiant les attributs src des balises <img>.
+
+    NOTE SUR LE DESIGN
+      Cette maquette reprend la MÊME STRUCTURE que le template
+      plombier, mais avec un univers visuel différent :
+        - Palette jaune/ambre "électrique" + fond sombre
+        - Typographie Manrope (plus technique, plus dense)
+        - Hero sombre avec grille lumineuse
+        - Cartes plus angulaires (rounded-2xl au lieu de 3xl)
+    ============================================================
+  -->
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Google Fonts : Manrope -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Manrope', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'ui-monospace', 'monospace'],
+          },
+          colors: {
+            night: {
+              950: '#0A0A0B',
+              900: '#111114',
+              800: '#17181C',
+              700: '#22232A',
+              600: '#2E3038',
+              500: '#4B4E58',
+              400: '#72757F',
+              300: '#A0A3AC',
+              200: '#D1D3D8',
+            },
+            volt: {
+              50:  '#FFFBEB',
+              100: '#FEF3C7',
+              200: '#FDE68A',
+              300: '#FCD34D',
+              400: '#FBBF24',
+              500: '#F5B400',
+              600: '#D69700',
+              700: '#A67600',
+              900: '#5A3E00',
+            },
+            cream: '#F7F5EE',
+          },
+          boxShadow: {
+            hard: '0 2px 0 rgba(10,10,11,0.9)',
+            card: '0 1px 2px rgba(10,10,11,0.06), 0 14px 30px -14px rgba(10,10,11,0.18)',
+            glow: '0 0 0 1px rgba(245,180,0,0.25), 0 10px 30px -10px rgba(245,180,0,0.45)',
+          },
+        },
+      },
+    };
+  </script>
+
+  <style>
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* Tech-style grid on dark hero */
+    .circuit-grid {
+      background-image:
+        linear-gradient(rgba(245,180,0,0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,180,0,0.08) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 90%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 70% at 60% 40%, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0) 90%);
+    }
+
+    /* Yellow glow behind visual */
+    .volt-glow {
+      background: radial-gradient(55% 55% at 50% 45%,
+        rgba(245,180,0,0.35) 0%,
+        rgba(245,180,0,0.10) 45%,
+        rgba(245,180,0,0.00) 75%);
+      filter: blur(8px);
+    }
+
+    /* Eyebrow : label de section en mono */
+    .eyebrow {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #D69700;
+      font-weight: 500;
+    }
+
+    /* Boutons — léger "bounce" au clic */
+    .btn-primary:active, .btn-ghost:active { transform: translateY(1px); }
+
+    /* Apparition au chargement */
+    @keyframes riseIn {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      animation: riseIn 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .reveal-1 { animation-delay: 0.05s; }
+    .reveal-2 { animation-delay: 0.15s; }
+    .reveal-3 { animation-delay: 0.25s; }
+    .reveal-4 { animation-delay: 0.35s; }
+
+    /* Pulse "live" */
+    @keyframes voltPulse {
+      0%, 100% { transform: scale(1);   opacity: 1; }
+      50%      { transform: scale(1.5); opacity: 0.35; }
+    }
+    .pulse-dot::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 9999px;
+      background: currentColor;
+      animation: voltPulse 2s ease-in-out infinite;
+    }
+
+    /* Lightning "blink" léger sur l'icône hero */
+    @keyframes blink {
+      0%, 92%, 100% { opacity: 1; }
+      94%           { opacity: 0.35; }
+      96%           { opacity: 1; }
+      98%           { opacity: 0.6; }
+    }
+    .blink { animation: blink 6s ease-in-out infinite; }
+
+    /* Image zoom doux */
+    .img-zoom { transition: transform 700ms cubic-bezier(0.16, 1, 0.3, 1); }
+    .group:hover .img-zoom { transform: scale(1.05); }
+
+    /* Transitions smooth */
+    a, button { transition: all 200ms cubic-bezier(0.16, 1, 0.3, 1); }
+
+    /* Overlays photo */
+    .overlay-bottom {
+      background: linear-gradient(to top,
+        rgba(10,10,11,0.88) 0%,
+        rgba(10,10,11,0.40) 40%,
+        rgba(10,10,11,0) 70%);
+    }
+    .overlay-soft {
+      background: linear-gradient(to top,
+        rgba(10,10,11,0.55) 0%,
+        rgba(10,10,11,0.10) 50%,
+        rgba(10,10,11,0) 100%);
+    }
+
+    /* Filet "electric line" utilisé comme séparateur */
+    .spark-line {
+      height: 1px;
+      background: linear-gradient(to right,
+        transparent 0%,
+        rgba(245,180,0,0.6) 30%,
+        rgba(245,180,0,0.9) 50%,
+        rgba(245,180,0,0.6) 70%,
+        transparent 100%);
+    }
+  </style>
+</head>
+
+<body class="bg-cream text-night-900 antialiased selection:bg-volt-300 selection:text-night-900">
+
+  <!-- ======================= TOP BAR ======================= -->
+  <header class="sticky top-0 z-40 bg-cream/85 backdrop-blur-md border-b border-night-900/10">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 h-16 flex items-center justify-between">
+      <!-- Logo mark + business name -->
+      <a href="#top" class="flex items-center gap-3">
+        <span class="relative inline-flex h-9 w-9 items-center justify-center rounded-md bg-night-900 text-volt-400 shadow-hard">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M13 2 4.09 12.97a.75.75 0 0 0 .57 1.23H11l-1 7.8 9.3-11.43a.75.75 0 0 0-.58-1.23H13V2z"/>
+          </svg>
+        </span>
+        <div class="leading-tight">
+          <div class="font-bold text-night-900 tracking-tight">Dailloux Didier</div>
+          <div class="text-[10px] text-night-500 tracking-[0.18em] uppercase font-mono">Électricien · Auxerre</div>
+        </div>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm text-night-500">
+        <a href="#services"   class="hover:text-night-900">Services</a>
+        <a href="#galerie"    class="hover:text-night-900">Réalisations</a>
+        <a href="#zone"       class="hover:text-night-900">Zone d'intervention</a>
+        <a href="#horaires"   class="hover:text-night-900">Horaires</a>
+        <a href="#contact"    class="hover:text-night-900">Contact</a>
+      </nav>
+
+      <a href="tel:+33682194544" class="btn-primary inline-flex items-center gap-2 rounded-md bg-volt-500 hover:bg-volt-400 text-night-900 px-4 py-2 text-sm font-bold shadow-hard">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.37 1.86.72 2.74a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.34-1.33a2 2 0 0 1 2.11-.45c.88.35 1.8.59 2.74.72A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        <span class="hidden sm:inline">06 82 19 45 44</span>
+        <span class="sm:hidden">Appeler</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ======================= HERO ======================= -->
+  <section id="top" class="relative overflow-hidden bg-night-950 text-night-200">
+    <div class="absolute inset-0 circuit-grid pointer-events-none"></div>
+    <div class="absolute -top-40 -left-40 w-[640px] h-[640px] volt-glow pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-5 md:px-8 pt-16 md:pt-24 pb-20 md:pb-28">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+
+        <!-- Left: Content -->
+        <div class="lg:col-span-6">
+          <div class="reveal reveal-1 inline-flex items-center gap-2 rounded-full border border-volt-500/30 bg-volt-500/10 px-3 py-1 text-xs text-volt-200 font-medium">
+            <span class="relative inline-flex h-2 w-2 text-volt-400 pulse-dot">
+              <span class="inline-flex h-2 w-2 rounded-full bg-volt-400"></span>
+            </span>
+            Dépannage électrique · 7j/7
+          </div>
+
+          <h1 class="reveal reveal-2 mt-6 text-4xl md:text-6xl font-extrabold tracking-tight leading-[1.02] text-white">
+            Électricien certifié,
+            <span class="block text-volt-400">à Auxerre.</span>
+          </h1>
+
+          <p class="reveal reveal-3 mt-6 text-lg text-night-300 max-w-[58ch] leading-relaxed">
+            Installation, dépannage, mise aux normes&nbsp;NF&nbsp;C&nbsp;15-100, domotique.
+            Dailloux Didier intervient chez vous rapidement, avec un diagnostic clair
+            et un travail garanti.
+          </p>
+
+          <div class="reveal reveal-4 mt-8 flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <a href="tel:+33682194544" class="btn-primary inline-flex items-center gap-3 rounded-md bg-volt-500 hover:bg-volt-400 text-night-900 px-6 py-3.5 font-bold shadow-glow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.37 1.86.72 2.74a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.34-1.33a2 2 0 0 1 2.11-.45c.88.35 1.8.59 2.74.72A2 2 0 0 1 22 16.92z"/>
+              </svg>
+              Appeler 06 82 19 45 44
+            </a>
+            <a href="#services" class="btn-ghost inline-flex items-center gap-2 rounded-md border border-night-600 bg-night-900/60 hover:border-volt-400 hover:text-white px-5 py-3.5 text-night-200 font-medium">
+              Voir les services
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Stats "techniques" avec style mono -->
+          <div class="reveal reveal-4 mt-12 grid grid-cols-3 max-w-lg gap-6">
+            <div>
+              <div class="font-mono text-xs text-volt-400 tracking-widest">01</div>
+              <div class="mt-1 text-xl md:text-2xl font-bold text-white">NF C 15-100</div>
+              <div class="text-xs text-night-400 mt-1">Installations conformes</div>
+            </div>
+            <div>
+              <div class="font-mono text-xs text-volt-400 tracking-widest">02</div>
+              <div class="mt-1 text-xl md:text-2xl font-bold text-white">24h/7j</div>
+              <div class="text-xs text-night-400 mt-1">Urgences électriques</div>
+            </div>
+            <div>
+              <div class="font-mono text-xs text-volt-400 tracking-widest">03</div>
+              <div class="mt-1 text-xl md:text-2xl font-bold text-white">Garantie</div>
+              <div class="text-xs text-night-400 mt-1">Décennale artisan</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Visual composition -->
+        <div class="lg:col-span-6">
+          <div class="reveal reveal-3 relative">
+            <!-- Main photo : électricien sur tableau -->
+            <div class="relative rounded-2xl overflow-hidden border border-night-700 shadow-card bg-night-900">
+              <img
+                src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1200&q=80"
+                alt="Électricien travaillant sur un tableau"
+                class="w-full h-[420px] md:h-[540px] object-cover img-zoom"
+                onerror="this.onerror=null;this.src='https://images.pexels.com/photos/8005397/pexels-photo-8005397.jpeg?auto=compress&cs=tinysrgb&w=1200';"
+              />
+              <div class="absolute inset-0 overlay-soft pointer-events-none"></div>
+
+              <!-- Badge flottant : certification -->
+              <div class="absolute left-5 bottom-5 right-5 md:right-auto md:max-w-[300px] rounded-xl bg-night-900/90 backdrop-blur border border-volt-500/30 p-4 shadow-card">
+                <div class="flex items-start gap-3">
+                  <div class="mt-0.5 flex h-9 w-9 items-center justify-center rounded-md bg-volt-500 text-night-900 blink">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M13 2 4.09 12.97a.75.75 0 0 0 .57 1.23H11l-1 7.8 9.3-11.43a.75.75 0 0 0-.58-1.23H13V2z"/>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-white">Électricien qualifié</div>
+                    <div class="text-xs text-night-300 leading-relaxed mt-0.5">
+                      Attestation Consuel, conformité NF C 15-100, matériel pro.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Secondary photo (tableau / câblage) -->
+            <div class="hidden md:block absolute -bottom-10 -right-10 w-48 h-56 rounded-xl overflow-hidden border-4 border-night-950 shadow-card">
+              <img
+                src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=600&q=80"
+                alt="Tableau électrique moderne"
+                class="w-full h-full object-cover"
+                onerror="this.onerror=null;this.src='https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=600';"
+              />
+            </div>
+
+            <!-- Tag décoratif "city" -->
+            <div class="absolute -top-3 -left-3 rounded-md bg-volt-500 text-night-900 text-[11px] font-bold tracking-widest uppercase px-3 py-1.5 shadow-hard font-mono">
+              ◆ Auxerre
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Ligne électrique de séparation -->
+    <div class="relative spark-line"></div>
+  </section>
+
+  <!-- ======================= SERVICES ======================= -->
+  <section id="services" class="relative py-20 md:py-28 bg-cream">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="grid lg:grid-cols-12 gap-10 items-end mb-12 md:mb-16">
+        <div class="lg:col-span-7">
+          <div class="eyebrow">// Nos services</div>
+          <h2 class="mt-3 text-3xl md:text-5xl font-extrabold tracking-tight text-night-900 leading-[1.05]">
+            De la prise à la maison<br class="hidden md:block" />
+            connectée, on s'occupe de tout.
+          </h2>
+        </div>
+        <div class="lg:col-span-5">
+          <p class="text-night-500 leading-relaxed max-w-[50ch]">
+            De la panne électrique au soir-même à la rénovation complète de votre installation, Dailloux Didier couvre tous les besoins en électricité chez les particuliers comme en local professionnel.
+          </p>
+        </div>
+      </div>
+
+      <!-- Services grid -->
+      <div class="grid md:grid-cols-2 gap-6 lg:gap-8">
+
+        <!-- Service 1 : Dépannage électrique -->
+        <article class="group relative rounded-2xl overflow-hidden bg-white border border-night-900/10 shadow-card hover:border-volt-500 transition">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1558389186-438424b00a06?auto=format&fit=crop&w=900&q=80"
+              alt="Dépannage électrique urgence"
+              class="w-full h-full object-cover img-zoom"
+              onerror="this.onerror=null;this.src='https://images.pexels.com/photos/5691622/pexels-photo-5691622.jpeg?auto=compress&cs=tinysrgb&w=900';"
+            />
+            <div class="absolute inset-0 overlay-bottom"></div>
+            <div class="absolute top-4 left-4 inline-flex items-center gap-2 rounded-md bg-volt-500 px-3 py-1 text-[11px] font-bold tracking-widest uppercase text-night-900 shadow-hard">
+              ⚡ Urgence 24h/7j
+            </div>
+          </div>
+          <div class="p-7 md:p-8">
+            <div class="flex items-start gap-4">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-volt-50 text-volt-600 border border-volt-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M13 2 4.09 12.97a.75.75 0 0 0 .57 1.23H11l-1 7.8 9.3-11.43a.75.75 0 0 0-.58-1.23H13V2z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-night-900 tracking-tight">Dépannage électrique</h3>
+                <p class="mt-2 text-night-500 leading-relaxed">
+                  Court-circuit, disjoncteur qui saute, panne totale, prise HS. Diagnostic et réparation dans la journée, 7j/7.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Service 2 : Installation / Rénovation -->
+        <article class="group relative rounded-2xl overflow-hidden bg-white border border-night-900/10 shadow-card hover:border-volt-500 transition md:translate-y-8">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=900&q=80"
+              alt="Installation et rénovation électrique"
+              class="w-full h-full object-cover img-zoom"
+              onerror="this.onerror=null;this.src='https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=900';"
+            />
+            <div class="absolute inset-0 overlay-bottom"></div>
+          </div>
+          <div class="p-7 md:p-8">
+            <div class="flex items-start gap-4">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-volt-50 text-volt-600 border border-volt-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="4" y="3" width="16" height="18" rx="2"/>
+                  <path d="M8 7h8M8 11h8M8 15h5"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-night-900 tracking-tight">Installation &amp; rénovation</h3>
+                <p class="mt-2 text-night-500 leading-relaxed">
+                  Tableau électrique, câblage neuf, prises, interrupteurs. Rénovation complète de votre installation, matériel Schneider / Legrand / Hager.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Service 3 : Mise aux normes -->
+        <article class="group relative rounded-2xl overflow-hidden bg-white border border-night-900/10 shadow-card hover:border-volt-500 transition">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=900&q=80"
+              alt="Mise aux normes NF C 15-100"
+              class="w-full h-full object-cover img-zoom"
+              onerror="this.onerror=null;this.src='https://images.pexels.com/photos/4792286/pexels-photo-4792286.jpeg?auto=compress&cs=tinysrgb&w=900';"
+            />
+            <div class="absolute inset-0 overlay-bottom"></div>
+          </div>
+          <div class="p-7 md:p-8">
+            <div class="flex items-start gap-4">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-volt-50 text-volt-600 border border-volt-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-night-900 tracking-tight">Mise aux normes NF&nbsp;C&nbsp;15-100</h3>
+                <p class="mt-2 text-night-500 leading-relaxed">
+                  Vérification, mise en sécurité, attestation Consuel. Indispensable avant vente, location ou gros travaux.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Service 4 : Domotique / éclairage -->
+        <article class="group relative rounded-2xl overflow-hidden bg-white border border-night-900/10 shadow-card hover:border-volt-500 transition md:translate-y-8">
+          <div class="relative h-56 overflow-hidden">
+            <img
+              src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=900&q=80"
+              alt="Maison connectée et éclairage LED"
+              class="w-full h-full object-cover img-zoom"
+              onerror="this.onerror=null;this.src='https://images.pexels.com/photos/8534198/pexels-photo-8534198.jpeg?auto=compress&cs=tinysrgb&w=900';"
+            />
+            <div class="absolute inset-0 overlay-bottom"></div>
+          </div>
+          <div class="p-7 md:p-8">
+            <div class="flex items-start gap-4">
+              <div class="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-volt-50 text-volt-600 border border-volt-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl font-bold text-night-900 tracking-tight">Domotique &amp; éclairage</h3>
+                <p class="mt-2 text-night-500 leading-relaxed">
+                  Maison connectée, interrupteurs intelligents, éclairage LED, volets motorisés. Compatible Google, Apple, Somfy.
+                </p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Service 5 (bonus électricien) : IRVE / Borne de recharge -->
+        <article class="group relative md:col-span-2 rounded-2xl overflow-hidden bg-night-900 text-night-200 border border-night-700 shadow-card hover:border-volt-500 transition">
+          <div class="grid md:grid-cols-5 items-stretch">
+            <div class="relative md:col-span-2 h-56 md:h-auto overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=900&q=80"
+                alt="Installation borne de recharge voiture électrique"
+                class="w-full h-full object-cover img-zoom"
+                onerror="this.onerror=null;this.src='https://images.pexels.com/photos/9800029/pexels-photo-9800029.jpeg?auto=compress&cs=tinysrgb&w=900';"
+              />
+              <div class="absolute inset-0 overlay-soft"></div>
+            </div>
+            <div class="md:col-span-3 p-7 md:p-10 flex flex-col justify-center">
+              <div class="eyebrow !text-volt-400">// Spécialité</div>
+              <h3 class="mt-2 text-2xl md:text-3xl font-extrabold tracking-tight text-white">
+                Installation de borne de recharge (IRVE).
+              </h3>
+              <p class="mt-3 text-night-300 leading-relaxed max-w-[55ch]">
+                Installation certifiée IRVE de votre Wallbox à domicile ou en copropriété.
+                Éligible aux aides, devis clair, mise en service incluse.
+              </p>
+              <div class="mt-5 flex flex-wrap gap-2 text-xs font-mono">
+                <span class="rounded-md bg-night-800 border border-night-700 px-2.5 py-1 text-night-200">Wallbox 7 kW</span>
+                <span class="rounded-md bg-night-800 border border-night-700 px-2.5 py-1 text-night-200">Wallbox 11 kW</span>
+                <span class="rounded-md bg-night-800 border border-night-700 px-2.5 py-1 text-night-200">Triphasé 22 kW</span>
+                <span class="rounded-md bg-volt-500/15 border border-volt-500/40 px-2.5 py-1 text-volt-300">Certifié IRVE</span>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- Inline CTA bar -->
+      <div class="mt-16 md:mt-20 rounded-xl border border-night-900/10 bg-white p-5 md:p-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow-card">
+        <div class="flex items-center gap-4">
+          <span class="flex h-10 w-10 items-center justify-center rounded-md bg-volt-500 text-night-900 shrink-0 shadow-hard">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M13 2 4.09 12.97a.75.75 0 0 0 .57 1.23H11l-1 7.8 9.3-11.43a.75.75 0 0 0-.58-1.23H13V2z"/>
+            </svg>
+          </span>
+          <div>
+            <div class="font-bold text-night-900">Disjoncteur qui saute ? Panne totale ?</div>
+            <div class="text-sm text-night-500">Diagnostic par téléphone, intervention rapide, devis gratuit.</div>
+          </div>
+        </div>
+        <a href="tel:+33682194544" class="btn-primary inline-flex items-center justify-center gap-2 rounded-md bg-night-900 hover:bg-night-800 text-volt-400 px-5 py-3 text-sm font-bold">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.37 1.86.72 2.74a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.34-1.33a2 2 0 0 1 2.11-.45c.88.35 1.8.59 2.74.72A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          06 82 19 45 44
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= GALERIE "RÉALISATIONS" ======================= -->
+  <section id="galerie" class="relative py-20 md:py-28 bg-cream border-t border-night-900/10">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="grid lg:grid-cols-12 gap-10 items-end mb-10">
+        <div class="lg:col-span-7">
+          <div class="eyebrow">// Réalisations</div>
+          <h2 class="mt-3 text-3xl md:text-5xl font-extrabold tracking-tight text-night-900 leading-[1.05]">
+            Du chantier brut<br class="hidden md:block" />
+            au résultat propre.
+          </h2>
+        </div>
+        <div class="lg:col-span-5">
+          <p class="text-night-500 leading-relaxed max-w-[50ch]">
+            Aperçu de nos interventions&nbsp;: câblage, tableaux, éclairage, domotique, IRVE. Chaque chantier est traité avec le même niveau d'exigence — et livré propre.
+          </p>
+        </div>
+      </div>
+
+      <!-- Photo collage -->
+      <div class="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-5">
+
+        <!-- Big photo -->
+        <div class="md:col-span-4 md:row-span-2 relative rounded-2xl overflow-hidden group h-[320px] md:h-auto min-h-[420px] shadow-card">
+          <img
+            src="https://images.unsplash.com/photo-1565608087341-404b25492fee?auto=format&fit=crop&w=1400&q=80"
+            alt="Électricien sur chantier"
+            class="absolute inset-0 w-full h-full object-cover img-zoom"
+            onerror="this.onerror=null;this.src='https://images.pexels.com/photos/5691659/pexels-photo-5691659.jpeg?auto=compress&cs=tinysrgb&w=1400';"
+          />
+          <div class="absolute inset-0 overlay-bottom"></div>
+          <div class="absolute left-6 bottom-6 right-6 text-white">
+            <div class="font-mono text-[11px] tracking-widest uppercase text-volt-300">// Sur le terrain</div>
+            <div class="mt-1 text-2xl md:text-3xl font-extrabold tracking-tight">Un câblage soigné, à la règle.</div>
+          </div>
+        </div>
+
+        <!-- Small photo 1 -->
+        <div class="md:col-span-2 relative rounded-2xl overflow-hidden group h-60 shadow-card">
+          <img
+            src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=800&q=80"
+            alt="Tableau électrique refait à neuf"
+            class="absolute inset-0 w-full h-full object-cover img-zoom"
+            onerror="this.onerror=null;this.src='https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=800';"
+          />
+          <div class="absolute inset-0 overlay-bottom"></div>
+          <div class="absolute left-5 bottom-5 text-white text-sm font-bold">Tableau électrique</div>
+        </div>
+
+        <!-- Small photo 2 -->
+        <div class="md:col-span-2 relative rounded-2xl overflow-hidden group h-60 shadow-card">
+          <img
+            src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=800&q=80"
+            alt="Éclairage LED moderne"
+            class="absolute inset-0 w-full h-full object-cover img-zoom"
+            onerror="this.onerror=null;this.src='https://images.pexels.com/photos/1571468/pexels-photo-1571468.jpeg?auto=compress&cs=tinysrgb&w=800';"
+          />
+          <div class="absolute inset-0 overlay-bottom"></div>
+          <div class="absolute left-5 bottom-5 text-white text-sm font-bold">Éclairage LED</div>
+        </div>
+
+        <!-- Small photo 3 -->
+        <div class="md:col-span-3 relative rounded-2xl overflow-hidden group h-60 shadow-card">
+          <img
+            src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&w=1000&q=80"
+            alt="Borne de recharge IRVE installée"
+            class="absolute inset-0 w-full h-full object-cover img-zoom"
+            onerror="this.onerror=null;this.src='https://images.pexels.com/photos/9800029/pexels-photo-9800029.jpeg?auto=compress&cs=tinysrgb&w=1000';"
+          />
+          <div class="absolute inset-0 overlay-bottom"></div>
+          <div class="absolute left-5 bottom-5 text-white text-sm font-bold">Borne de recharge IRVE</div>
+        </div>
+
+        <!-- Small photo 4 -->
+        <div class="md:col-span-3 relative rounded-2xl overflow-hidden group h-60 shadow-card">
+          <img
+            src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=1000&q=80"
+            alt="Maison connectée domotique"
+            class="absolute inset-0 w-full h-full object-cover img-zoom"
+            onerror="this.onerror=null;this.src='https://images.pexels.com/photos/8534198/pexels-photo-8534198.jpeg?auto=compress&cs=tinysrgb&w=1000';"
+          />
+          <div class="absolute inset-0 overlay-bottom"></div>
+          <div class="absolute left-5 bottom-5 text-white text-sm font-bold">Domotique</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= ZONE D'INTERVENTION ======================= -->
+  <section id="zone" class="relative py-20 md:py-28 bg-night-950 text-white overflow-hidden">
+    <!-- Grid background subtle -->
+    <div class="absolute inset-0 circuit-grid opacity-60 pointer-events-none"></div>
+    <div class="absolute top-0 right-0 w-[500px] h-[500px] volt-glow pointer-events-none"></div>
+
+    <div class="relative max-w-7xl mx-auto px-5 md:px-8">
+      <div class="grid lg:grid-cols-12 gap-12 items-start">
+
+        <div class="lg:col-span-5">
+          <div class="eyebrow !text-volt-400">// Zone d'intervention</div>
+          <h2 class="mt-3 text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.05]">
+            Un électricien local,<br />
+            qui arrive vite.
+          </h2>
+          <p class="mt-5 text-night-300 leading-relaxed max-w-[50ch]">
+            Basé à Auxerre, Dailloux Didier intervient rapidement dans toute la zone. Un déplacement court, un tarif juste, un service de proximité — et un vrai artisan au bout du fil.
+          </p>
+
+          <!-- Addr card -->
+          <div class="mt-8 rounded-xl border border-night-700 bg-night-900/60 p-5 backdrop-blur">
+            <div class="flex items-start gap-4">
+              <span class="mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-volt-500 text-night-900">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 1 1 16 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              <div>
+                <div class="font-mono text-[11px] uppercase tracking-widest text-volt-300">Adresse</div>
+                <div class="mt-1 font-bold text-white">4 Rue de la Tour d'Auvergne</div>
+                <div class="text-night-300">89000 Auxerre</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="tel:+33682194544" class="btn-primary mt-8 inline-flex items-center gap-3 rounded-md bg-volt-500 text-night-900 hover:bg-volt-400 px-6 py-3.5 font-bold shadow-glow">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.37 1.86.72 2.74a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.34-1.33a2 2 0 0 1 2.11-.45c.88.35 1.8.59 2.74.72A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            Demander un devis
+          </a>
+        </div>
+
+        <!-- Right: cities + map -->
+        <div class="lg:col-span-7">
+          <div class="rounded-2xl border border-night-700 bg-night-900/60 p-7 md:p-9 backdrop-blur">
+            <div class="flex items-center justify-between">
+              <div class="text-sm font-bold text-white">Communes desservies</div>
+              <div class="text-xs text-volt-300 font-mono tracking-wider">◆ Intervention sous 60 min</div>
+            </div>
+            <div id="service-areas" class="mt-5 flex flex-wrap gap-2 text-sm">
+              Intervention à Auxerre et dans un rayon de 30 km (communes limitrophes et agglomération).
+            </div>
+          </div>
+
+          <div class="mt-5 rounded-2xl overflow-hidden border border-night-700 aspect-[16/10] bg-night-900">
+            <iframe
+              src="https://maps.google.com/maps?q=4+Rue+de+la+Tour+d%27Auvergne%2C+89000+Auxerre&t=&z=13&ie=UTF8&iwloc=&output=embed"
+              width="100%"
+              height="100%"
+              style="border:0;"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Zone d'intervention Dailloux Didier">
+            </iframe>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= HORAIRES + CONTACT ======================= -->
+  <section id="horaires" class="relative py-20 md:py-28 bg-cream">
+    <div class="max-w-7xl mx-auto px-5 md:px-8">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-14">
+
+        <!-- Horaires -->
+        <div class="lg:col-span-6">
+          <div class="eyebrow">// Horaires</div>
+          <h2 class="mt-3 text-3xl md:text-5xl font-extrabold tracking-tight leading-[1.05] text-night-900">
+            Ouvert toute la semaine.
+          </h2>
+          <p class="mt-4 text-night-500 leading-relaxed max-w-[50ch]">
+            Retrouvez ci-dessous les horaires habituels de Dailloux Didier. Pour les urgences électriques en dehors de ces créneaux, contactez-nous par téléphone.
+          </p>
+
+          <!-- Hours list -->
+          <div class="mt-8 rounded-xl border border-night-900/10 bg-white shadow-card overflow-hidden">
+            <dl class="divide-y divide-night-900/10">
+              <div class="flex items-center justify-between px-5 py-4">
+                <dt class="text-night-900 font-bold">Lundi</dt>
+                <dd class="text-night-500 font-mono text-sm">{{HOURS_MONDAY}}</dd>
+              </div>
+              <div class="flex items-center justify-between px-5 py-4">
+                <dt class="text-night-900 font-bold">Mardi</dt>
+                <dd class="text-night-500 font-mono text-sm">{{HOURS_TUESDAY}}</dd>
+              </div>
+              <div class="flex items-center justify-between px-5 py-4">
+                <dt class="text-night-900 font-bold">Mercredi</dt>
+                <dd class="text-night-500 font-mono text-sm">{{HOURS_WEDNESDAY}}</dd>
+              </div>
+              <div class="flex items-center justify-between px-5 py-4">
+                <dt class="text-night-900 font-bold">Jeudi</dt>
+                <dd class="text-night-500 font-mono text-sm">{{HOURS_THURSDAY}}</dd>
+              </div>
+              <div class="flex items-center justify-between px-5 py-4">
+                <dt class="text-night-900 font-bold">Vendredi</dt>
+                <dd class="text-night-500 font-mono text-sm">{{HOURS_FRIDAY}}</dd>
+              </div>
+              <div class="flex items-center justify-between px-5 py-4">
+                <dt class="text-night-900 font-bold">Samedi</dt>
+                <dd class="text-night-500 font-mono text-sm">{{HOURS_SATURDAY}}</dd>
+              </div>
+              <div class="flex items-center justify-between px-5 py-4">
+                <dt class="text-night-900 font-bold">Dimanche</dt>
+                <dd class="text-night-500 font-mono text-sm">{{HOURS_SUNDAY}}</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+
+        <!-- Contact -->
+        <div id="contact" class="lg:col-span-6">
+          <!-- Photo banner -->
+          <div class="relative rounded-2xl overflow-hidden mb-8 shadow-card">
+            <img
+              src="https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&w=1200&q=80"
+              alt="Contact électricien"
+              class="w-full h-56 object-cover"
+              onerror="this.onerror=null;this.src='https://images.pexels.com/photos/5691660/pexels-photo-5691660.jpeg?auto=compress&cs=tinysrgb&w=1200';"
+            />
+            <div class="absolute inset-0 overlay-bottom"></div>
+            <div class="absolute bottom-5 left-5 right-5 text-white">
+              <div class="font-mono text-[11px] tracking-widest uppercase text-volt-300">// Contact</div>
+              <div class="mt-1 text-2xl md:text-3xl font-extrabold tracking-tight">Parlons de votre projet.</div>
+            </div>
+          </div>
+
+          <p class="text-night-500 leading-relaxed max-w-[50ch]">
+            Une panne, une installation, une mise aux normes, un devis&nbsp;? Le plus rapide reste l'appel — vous obtenez un diagnostic précis tout de suite.
+          </p>
+
+          <div class="mt-6 space-y-4">
+
+            <a href="tel:+33682194544" class="group flex items-start gap-5 rounded-xl border border-night-900/10 bg-white p-5 md:p-6 hover:border-volt-500 shadow-card">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-volt-500 text-night-900 shadow-hard">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.8 19.8 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.94.37 1.86.72 2.74a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.34-1.33a2 2 0 0 1 2.11-.45c.88.35 1.8.59 2.74.72A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </span>
+              <div class="min-w-0 flex-1">
+                <div class="font-mono text-[11px] uppercase tracking-widest text-night-400">Téléphone</div>
+                <div class="mt-1 text-xl font-extrabold text-night-900 truncate">06 82 19 45 44</div>
+                <div class="text-sm text-night-500">Appel direct, diagnostic immédiat</div>
+              </div>
+              <svg class="mt-2 text-night-400 group-hover:text-night-900 group-hover:translate-x-1 transition" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
+            </a>
+
+            <a href="mailto:contact@dailloux-didier.fr" class="group flex items-start gap-5 rounded-xl border border-night-900/10 bg-white p-5 md:p-6 hover:border-volt-500 shadow-card">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-volt-50 text-volt-600 border border-volt-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="5" width="18" height="14" rx="2"/>
+                  <path d="m3 7 9 6 9-6"/>
+                </svg>
+              </span>
+              <div class="min-w-0 flex-1">
+                <div class="font-mono text-[11px] uppercase tracking-widest text-night-400">Email</div>
+                <div class="mt-1 text-xl font-extrabold text-night-900 truncate">contact@dailloux-didier.fr</div>
+                <div class="text-sm text-night-500">Réponse sous 24 h ouvrées</div>
+              </div>
+              <svg class="mt-2 text-night-400 group-hover:text-night-900 group-hover:translate-x-1 transition" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M5 12h14M13 5l7 7-7 7"/>
+              </svg>
+            </a>
+
+            <div class="flex items-start gap-5 rounded-xl border border-night-900/10 bg-white p-5 md:p-6 shadow-card">
+              <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-volt-50 text-volt-600 border border-volt-200">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M20 10c0 7-8 12-8 12s-8-5-8-12a8 8 0 1 1 16 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </span>
+              <div class="min-w-0 flex-1">
+                <div class="font-mono text-[11px] uppercase tracking-widest text-night-400">Adresse</div>
+                <div class="mt-1 text-lg font-extrabold text-night-900">4 Rue de la Tour d'Auvergne</div>
+                <div class="text-sm text-night-500">89000 Auxerre</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= FOOTER ======================= -->
+  <footer class="border-t border-night-900/10 bg-night-950 text-night-300">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 py-12 md:py-16">
+      <div class="grid md:grid-cols-3 gap-10 items-start">
+
+        <div>
+          <div class="flex items-center gap-3">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-md bg-volt-500 text-night-900 shadow-hard">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M13 2 4.09 12.97a.75.75 0 0 0 .57 1.23H11l-1 7.8 9.3-11.43a.75.75 0 0 0-.58-1.23H13V2z"/>
+              </svg>
+            </span>
+            <div class="font-bold tracking-tight text-white">Dailloux Didier</div>
+          </div>
+          <p class="mt-4 text-sm text-night-400 leading-relaxed max-w-[38ch]">
+            Électricien artisan à Auxerre. Dépannage, installation, mise aux normes, domotique et borne de recharge IRVE.
+          </p>
+        </div>
+
+        <div class="text-sm">
+          <div class="font-mono text-[11px] uppercase tracking-widest text-volt-400">Contact</div>
+          <ul class="mt-3 space-y-2 text-night-200">
+            <li><a class="hover:text-volt-400" href="tel:+33682194544">06 82 19 45 44</a></li>
+            <li><a class="hover:text-volt-400" href="mailto:contact@dailloux-didier.fr">contact@dailloux-didier.fr</a></li>
+            <li class="text-night-400">4 Rue de la Tour d'Auvergne, 89000 Auxerre</li>
+          </ul>
+        </div>
+
+        <div class="text-sm">
+          <div class="font-mono text-[11px] uppercase tracking-widest text-volt-400">Navigation</div>
+          <ul class="mt-3 space-y-2 text-night-200">
+            <li><a class="hover:text-volt-400" href="#services">Services</a></li>
+            <li><a class="hover:text-volt-400" href="#galerie">Réalisations</a></li>
+            <li><a class="hover:text-volt-400" href="#zone">Zone d'intervention</a></li>
+            <li><a class="hover:text-volt-400" href="#horaires">Horaires</a></li>
+            <li><a class="hover:text-volt-400" href="#contact">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-12 pt-6 border-t border-night-800 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs text-night-500">
+        <div>© <span id="year"></span> Dailloux Didier — Tous droits réservés.</div>
+        <div class="font-mono tracking-wider">Site sur-mesure pour les artisans électriciens.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Tiny JS: year + service-areas pill rendering -->
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    (function renderServiceAreas() {
+      var el = document.getElementById('service-areas');
+      if (!el) return;
+      var raw = el.textContent.trim();
+      if (!raw || raw.indexOf('{{') === 0) return;
+      var cities = raw.split(/[,;|]/).map(function (c) { return c.trim(); }).filter(Boolean);
+      if (!cities.length) return;
+      el.innerHTML = cities.map(function (city) {
+        return '<span class="rounded-md border border-volt-500/30 bg-volt-500/10 px-3 py-1.5 text-volt-200 font-medium">'
+          + city.replace(/</g, '&lt;')
+          + '</span>';
+      }).join('');
+    })();
+  </script>
+
+</body>
+</html>
